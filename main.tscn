@@ -1,0 +1,165 @@
+[gd_scene load_steps=5 format=3 uid="uid://btyxylbnxfl5d"]
+
+[ext_resource type="Script" uid="uid://0ba1rxi8elb3" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://sh88rdhbxolr" path="res://phone.gd" id="2_0xm2m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig7tw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xm2m"]
+bg_color = Color(0.340339, 0.340339, 0.340339, 1)
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+
+[node name="Clock" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -15.5
+offset_right = 25.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Clock"
+
+[node name="Staff" type="Timer" parent="Clock"]
+wait_time = 2.0
+autostart = true
+
+[node name="HUD" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -71.0
+offset_right = 576.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+layout_mode = 2
+
+[node name="hours logged" type="Label" parent="HUD/HBoxContainer"]
+layout_mode = 2
+text = "Hackatime Hours: 0"
+
+[node name="hackers" type="Label" parent="HUD/HBoxContainer"]
+layout_mode = 2
+text = "Hackers: 1"
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+layout_mode = 2
+
+[node name="phone" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(280, 420)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ig7tw")
+script = ExtResource("2_0xm2m")
+
+[node name="MarginContainer" type="MarginContainer" parent="phone"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 40
+
+[node name="PanelContainer" type="PanelContainer" parent="phone/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0xm2m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="phone/MarginContainer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="aprove" type="Button" parent="phone/MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Aprove"
+
+[node name="hire" type="Button" parent="phone/MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Hire"
+
+[node name="hire2" type="Button" parent="phone/MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "blabla"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="phone"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="home button" type="Button" parent="phone/AspectRatioContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "         "
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_top = 15.0
+offset_right = 58.0
+offset_bottom = 555.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+
+[node name="phone" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "Phone"
+
+[node name="Pause" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pause"
+
+[connection signal="pressed" from="Clock" to="." method="clock_ticked"]
+[connection signal="timeout" from="Clock/Staff" to="." method="_on_staff_timeout"]
+[connection signal="pressed" from="phone/MarginContainer/PanelContainer/VBoxContainer/aprove" to="." method="aplicant_aproved"]
+[connection signal="pressed" from="phone/MarginContainer/PanelContainer/VBoxContainer/hire" to="." method="_on_hire_pressed"]
+[connection signal="pressed" from="phone/AspectRatioContainer/home button" to="phone" method="_on_phone_pressed"]
+[connection signal="pressed" from="PanelContainer2/MarginContainer/VBoxContainer/phone" to="phone" method="_on_phone_pressed"]
