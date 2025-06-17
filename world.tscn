@@ -1,20 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://cnns0ecdyngoy"]
+[gd_scene load_steps=19 format=3 uid="uid://cnns0ecdyngoy"]
 
 [ext_resource type="Script" uid="uid://dc3wu1n8yl2wl" path="res://player.gd" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://bdl2r8l08s7ud" path="res://Concrete017_1K-JPG_Color.jpg" id="2_fj7yv"]
 [ext_resource type="Script" uid="uid://dvl5piate85hl" path="res://ui.gd" id="3_tlwt5"]
 [ext_resource type="Script" uid="uid://sh88rdhbxolr" path="res://phone.gd" id="4_aqk2v"]
 [ext_resource type="Texture2D" uid="uid://bcm58stdkls2d" path="res://untitled0001.png" id="5_036b0"]
-[ext_resource type="Texture2D" uid="uid://c3x45tfk3c4yp" path="res://sec hand0001.png" id="6_hiqwa"]
-[ext_resource type="Texture2D" uid="uid://b532bwoqyre8v" path="res://sec hand0002.png" id="7_2u3nc"]
-[ext_resource type="Texture2D" uid="uid://bel8c6mcyaxql" path="res://sec hand0003.png" id="8_udxuc"]
-[ext_resource type="Texture2D" uid="uid://bg7usqxntec4p" path="res://sec hand0004.png" id="9_ikiii"]
-[ext_resource type="Texture2D" uid="uid://dicg0let61p75" path="res://sec hand0005.png" id="10_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://ddhspihjqpbuj" path="res://min hand0001.png" id="11_26xuy"]
-[ext_resource type="Texture2D" uid="uid://yku0e57u7spy" path="res://min hand0002.png" id="12_bc84e"]
-[ext_resource type="Texture2D" uid="uid://oglb1k4awr7k" path="res://min hand0003.png" id="13_wukud"]
-[ext_resource type="Texture2D" uid="uid://cjiyiay1dt6of" path="res://min hand0004.png" id="14_il2jm"]
-[ext_resource type="Texture2D" uid="uid://cy0hbq4y2sryw" path="res://min hand0005.png" id="15_wjb0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fj7yv"]
 
@@ -23,65 +14,131 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwbse"]
 bg_color = Color(0.340339, 0.340339, 0.340339, 1)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_mc2jv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_hiqwa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_2u3nc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_udxuc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_ikiii")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_cbp6q")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}]
+[sub_resource type="Animation" id="Animation_dwbse"]
+resource_name = "sec_hand"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bo7i5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("11_26xuy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_bc84e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_wukud")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_il2jm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_wjb0r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_26xuy")
-}],
-"loop": false,
-"name": &"default",
-"speed": 18.0
-}]
+[sub_resource type="Animation" id="Animation_pkg7o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pkg7o"]
+_data = {
+&"RESET": SubResource("Animation_pkg7o"),
+&"sec_hand": SubResource("Animation_dwbse")
+}
+
+[sub_resource type="Animation" id="Animation_gbfbk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("min hand:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ioo17"]
+resource_name = "minute_hand"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("min hand:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wse8f"]
+_data = {
+&"RESET": SubResource("Animation_gbfbk"),
+&"minute_hand": SubResource("Animation_ioo17")
+}
+
+[sub_resource type="Animation" id="Animation_wse8f"]
+resource_name = "clicked"
+length = 0.12
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.12),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ic0uy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k3n1d"]
+_data = {
+&"RESET": SubResource("Animation_ic0uy"),
+&"clicked": SubResource("Animation_wse8f")
+}
 
 [node name="world" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+visible = false
 script = ExtResource("1_f3sb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CircleShape2D_fj7yv")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(-2.38419e-07, 2.38419e-07)
+position = Vector2(-1, -1)
 scale = Vector2(0.0644531, 0.0644531)
 texture = ExtResource("2_fj7yv")
 
@@ -89,7 +146,7 @@ texture = ExtResource("2_fj7yv")
 
 [node name="Concrete0171k-jpgColor" type="Sprite2D" parent="."]
 self_modulate = Color(0.381703, 0.381703, 0.381703, 1)
-z_index = -1
+z_index = -4
 position = Vector2(1.99998, 0.75)
 scale = Vector2(3.39062, 2.5957)
 texture = ExtResource("2_fj7yv")
@@ -112,22 +169,20 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_top = -66.0
+offset_bottom = -66.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HUD bar" type="PanelContainer" parent="CanvasLayer/UI/Hud"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = -547.5
-offset_top = -35.5
 offset_right = 547.5
-offset_bottom = 35.5
+offset_bottom = 71.0
 grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/Hud/HUD bar"]
 layout_mode = 2
@@ -152,9 +207,9 @@ text = "Staff: 0"
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/Hud"]
 layout_mode = 0
 offset_left = -518.0
-offset_top = -86.0
-offset_right = -460.0
-offset_bottom = -46.0
+offset_top = -45.0
+offset_right = -392.0
+offset_bottom = -5.0
 theme_override_constants/separation = 10
 
 [node name="Button" type="Button" parent="CanvasLayer/UI/Hud/HBoxContainer"]
@@ -255,18 +310,52 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "         "
 
-[node name="Untitled0001" type="Sprite2D" parent="."]
-position = Vector2(-6, 26)
+[node name="clock" type="Node2D" parent="."]
+
+[node name="clock" type="Sprite2D" parent="clock"]
+z_index = -1
+position = Vector2(-2, 30)
 texture = ExtResource("5_036b0")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Untitled0001"]
-sprite_frames = SubResource("SpriteFrames_mc2jv")
-autoplay = "default"
-frame_progress = 0.0291571
+[node name="sec hand" type="Sprite2D" parent="clock/clock"]
+position = Vector2(2, -30)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_26xuy")
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Untitled0001"]
-sprite_frames = SubResource("SpriteFrames_bo7i5")
-frame = 5
-frame_progress = 1.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="clock/clock/sec hand"]
+libraries = {
+&"": SubResource("AnimationLibrary_pkg7o")
+}
+autoplay = "sec_hand"
+
+[node name="min hand" type="Sprite2D" parent="clock/clock"]
+position = Vector2(2, -30)
+texture = ExtResource("11_26xuy")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="clock/clock/min hand"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_wse8f")
+}
+
+[node name="clockbutton" type="Button" parent="clock/clock"]
+custom_minimum_size = Vector2(200, 200)
+offset_left = -96.0
+offset_top = -132.0
+offset_right = 104.0
+offset_bottom = 68.0
+flat = true
+
+[node name="Staff" type="Timer" parent="clock/clock"]
+wait_time = 2.0
+autostart = true
+
+[node name="passive_aplicants" type="Timer" parent="clock/clock"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="clock/clock"]
+libraries = {
+&"": SubResource("AnimationLibrary_k3n1d")
+}
 
 [connection signal="pressed" from="CanvasLayer/UI/phone/AspectRatioContainer/home button" to="CanvasLayer/UI/phone" method="_on_phone_pressed"]
+[connection signal="pressed" from="clock/clock/clockbutton" to="CanvasLayer/UI" method="clock_ticked"]
