@@ -1,0 +1,198 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnns0ecdyngoy"]
+
+[ext_resource type="Script" uid="uid://dc3wu1n8yl2wl" path="res://player.gd" id="1_f3sb7"]
+[ext_resource type="Texture2D" uid="uid://bdl2r8l08s7ud" path="res://Concrete017_1K-JPG_Color.jpg" id="2_fj7yv"]
+[ext_resource type="Script" uid="uid://dvl5piate85hl" path="res://ui.gd" id="3_tlwt5"]
+[ext_resource type="Script" uid="uid://sh88rdhbxolr" path="res://phone.gd" id="4_aqk2v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fj7yv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_036b0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwbse"]
+bg_color = Color(0.340339, 0.340339, 0.340339, 1)
+
+[node name="world" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_f3sb7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_fj7yv")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-2.38419e-07, 2.38419e-07)
+scale = Vector2(0.0644531, 0.0644531)
+texture = ExtResource("2_fj7yv")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+
+[node name="Concrete0171k-jpgColor" type="Sprite2D" parent="."]
+self_modulate = Color(0.381703, 0.381703, 0.381703, 1)
+z_index = -1
+position = Vector2(1.99998, 0.75)
+scale = Vector2(3.39062, 2.5957)
+texture = ExtResource("2_fj7yv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_tlwt5")
+
+[node name="Hud" type="Control" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HUD bar" type="PanelContainer" parent="CanvasLayer/UI/Hud"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -547.5
+offset_top = -35.5
+offset_right = 547.5
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/Hud/HUD bar"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/Hud/HUD bar/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="hours logged" type="Label" parent="CanvasLayer/UI/Hud/HUD bar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Hackatime Hours: 0"
+
+[node name="hackers" type="Label" parent="CanvasLayer/UI/Hud/HUD bar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Hackers: 1"
+
+[node name="staff" type="Label" parent="CanvasLayer/UI/Hud/HUD bar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Staff: 0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/Hud"]
+layout_mode = 0
+offset_left = -518.0
+offset_top = -86.0
+offset_right = -460.0
+offset_bottom = -46.0
+theme_override_constants/separation = 10
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Hud/HBoxContainer"]
+layout_mode = 2
+text = "Phone"
+
+[node name="Button2" type="Button" parent="CanvasLayer/UI/Hud/HBoxContainer"]
+layout_mode = 2
+text = "Phone"
+
+[node name="phone" type="PanelContainer" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(280, 420)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_036b0")
+script = ExtResource("4_aqk2v")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/phone"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 40
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/UI/phone/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dwbse")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="aprove" type="Button" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Aprove"
+
+[node name="price" type="Label" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "$100"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="hire" type="Button" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Hire"
+
+[node name="price" type="Label" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "$200"
+horizontal_alignment = 1
+
+[node name="upgrades" type="Button" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="hire3" type="Button" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "blabla"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer/UI/phone"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="home button" type="Button" parent="CanvasLayer/UI/phone/AspectRatioContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "         "
+
+[connection signal="pressed" from="CanvasLayer/UI/phone/AspectRatioContainer/home button" to="CanvasLayer/UI/phone" method="_on_phone_pressed"]

@@ -16,9 +16,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	$"HUD/MarginContainer/HBoxContainer/hours logged".text = "Hackatime Hours: " + Global.displaynum(hours_logged)
-	$HUD/MarginContainer/HBoxContainer/hackers.text = "Hackers: " + str(hackers)
-	$HUD/MarginContainer/HBoxContainer/staff.text = "Staff: " + str(staff)
+	#$"HUD/MarginContainer/HBoxContainer/hours logged".text = "Hackatime Hours: " + Global.displaynum(hours_logged)
+	#$HUD/MarginContainer/HBoxContainer/hackers.text = "Hackers: " + str(hackers)
+	#$HUD/MarginContainer/HBoxContainer/staff.text = "Staff: " + str(staff)
 	
 	$phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/price.text = Global.displaynum(aplicant_price)
 	$phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer2/price.text = Global.displaynum(staff_price)

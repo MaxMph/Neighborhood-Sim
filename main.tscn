@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://btyxylbnxfl5d"]
+[gd_scene load_steps=9 format=3 uid="uid://btyxylbnxfl5d"]
 
 [ext_resource type="Script" uid="uid://0ba1rxi8elb3" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://sh88rdhbxolr" path="res://phone.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://cmnlwxdr0645g" path="res://store.gd" id="3_h2yge"]
 
 [sub_resource type="Animation" id="Animation_h2yge"]
 length = 0.001
@@ -113,6 +114,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_1bvp3")
 }
 
+[node name="passive_aplicants" type="Timer" parent="Clock"]
+
 [node name="HUD" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -147,6 +150,7 @@ layout_mode = 2
 text = "Staff: 0"
 
 [node name="phone" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(280, 420)
 layout_mode = 1
 anchors_preset = 8
@@ -209,7 +213,15 @@ layout_mode = 2
 text = "$200"
 horizontal_alignment = 1
 
-[node name="hire2" type="Button" parent="phone/MarginContainer/PanelContainer/VBoxContainer"]
+[node name="upgrades" type="Button" parent="phone/MarginContainer/PanelContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="hire3" type="Button" parent="phone/MarginContainer/PanelContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -247,6 +259,10 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 20
 
+[node name="store" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Store"
+
 [node name="phone" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -257,9 +273,81 @@ text = "Phone"
 layout_mode = 2
 text = "Pause"
 
+[node name="store" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_h2yge")
+
+[node name="TabContainer" type="TabContainer" parent="store"]
+layout_mode = 2
+current_tab = 0
+
+[node name="permanent" type="TabBar" parent="store/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="GridContainer" type="GridContainer" parent="store/TabContainer/permanent"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.5
+offset_top = -51.0
+offset_right = 137.5
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 40
+columns = 3
+
+[node name="Button" type="Button" parent="store/TabContainer/permanent/GridContainer"]
+layout_mode = 2
+text = "blabla"
+
+[node name="Button2" type="Button" parent="store/TabContainer/permanent/GridContainer"]
+layout_mode = 2
+text = "dffgadr"
+
+[node name="Button3" type="Button" parent="store/TabContainer/permanent/GridContainer"]
+layout_mode = 2
+text = "dffgadr"
+
+[node name="Button4" type="Button" parent="store/TabContainer/permanent/GridContainer"]
+layout_mode = 2
+text = "dffgadr"
+
+[node name="Button5" type="Button" parent="store/TabContainer/permanent/GridContainer"]
+layout_mode = 2
+text = "dffgadr"
+
+[node name="Button6" type="Button" parent="store/TabContainer/permanent/GridContainer"]
+layout_mode = 2
+text = "dffgadr"
+
+[node name="temporary" type="TabBar" parent="store/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
 [connection signal="pressed" from="Clock" to="." method="clock_ticked"]
 [connection signal="timeout" from="Clock/Staff" to="." method="_on_staff_timeout"]
 [connection signal="pressed" from="phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/aprove" to="." method="aplicant_aproved"]
 [connection signal="pressed" from="phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer2/hire" to="." method="_on_hire_pressed"]
 [connection signal="pressed" from="phone/AspectRatioContainer/home button" to="phone" method="_on_phone_pressed"]
+[connection signal="pressed" from="PanelContainer2/MarginContainer/VBoxContainer/store" to="store" method="_on_store_pressed"]
 [connection signal="pressed" from="PanelContainer2/MarginContainer/VBoxContainer/phone" to="phone" method="_on_phone_pressed"]
