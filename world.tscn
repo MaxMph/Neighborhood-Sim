@@ -1,9 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnns0ecdyngoy"]
+[gd_scene load_steps=21 format=3 uid="uid://cnns0ecdyngoy"]
 
 [ext_resource type="Script" uid="uid://dc3wu1n8yl2wl" path="res://player.gd" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://bdl2r8l08s7ud" path="res://Concrete017_1K-JPG_Color.jpg" id="2_fj7yv"]
 [ext_resource type="Script" uid="uid://dvl5piate85hl" path="res://ui.gd" id="3_tlwt5"]
 [ext_resource type="Script" uid="uid://sh88rdhbxolr" path="res://phone.gd" id="4_aqk2v"]
+[ext_resource type="Texture2D" uid="uid://bcm58stdkls2d" path="res://untitled0001.png" id="5_036b0"]
+[ext_resource type="Texture2D" uid="uid://c3x45tfk3c4yp" path="res://sec hand0001.png" id="6_hiqwa"]
+[ext_resource type="Texture2D" uid="uid://b532bwoqyre8v" path="res://sec hand0002.png" id="7_2u3nc"]
+[ext_resource type="Texture2D" uid="uid://bel8c6mcyaxql" path="res://sec hand0003.png" id="8_udxuc"]
+[ext_resource type="Texture2D" uid="uid://bg7usqxntec4p" path="res://sec hand0004.png" id="9_ikiii"]
+[ext_resource type="Texture2D" uid="uid://dicg0let61p75" path="res://sec hand0005.png" id="10_cbp6q"]
+[ext_resource type="Texture2D" uid="uid://ddhspihjqpbuj" path="res://min hand0001.png" id="11_26xuy"]
+[ext_resource type="Texture2D" uid="uid://yku0e57u7spy" path="res://min hand0002.png" id="12_bc84e"]
+[ext_resource type="Texture2D" uid="uid://oglb1k4awr7k" path="res://min hand0003.png" id="13_wukud"]
+[ext_resource type="Texture2D" uid="uid://cjiyiay1dt6of" path="res://min hand0004.png" id="14_il2jm"]
+[ext_resource type="Texture2D" uid="uid://cy0hbq4y2sryw" path="res://min hand0005.png" id="15_wjb0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fj7yv"]
 
@@ -11,6 +22,55 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwbse"]
 bg_color = Color(0.340339, 0.340339, 0.340339, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mc2jv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hiqwa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2u3nc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_udxuc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ikiii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cbp6q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bo7i5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_26xuy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_bc84e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_wukud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_il2jm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_wjb0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_26xuy")
+}],
+"loop": false,
+"name": &"default",
+"speed": 18.0
+}]
 
 [node name="world" type="Node2D"]
 
@@ -194,5 +254,19 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "         "
+
+[node name="Untitled0001" type="Sprite2D" parent="."]
+position = Vector2(-6, 26)
+texture = ExtResource("5_036b0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Untitled0001"]
+sprite_frames = SubResource("SpriteFrames_mc2jv")
+autoplay = "default"
+frame_progress = 0.0291571
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Untitled0001"]
+sprite_frames = SubResource("SpriteFrames_bo7i5")
+frame = 5
+frame_progress = 1.0
 
 [connection signal="pressed" from="CanvasLayer/UI/phone/AspectRatioContainer/home button" to="CanvasLayer/UI/phone" method="_on_phone_pressed"]
