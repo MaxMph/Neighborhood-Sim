@@ -14,6 +14,10 @@ config/name="Neighborhood Sim"
 run/main_scene="uid://btyxylbnxfl5d"
 config/features=PackedStringArray("4.4", "Forward Plus")
 
+[autoload]
+
+Global="*res://global.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
