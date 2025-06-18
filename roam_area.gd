@@ -23,4 +23,5 @@ func rand_pos():
 	var pos = Vector2.ZERO
 	pos.x = randi_range(-$CollisionShape2D.shape.extents.x, $CollisionShape2D.shape.extents.x)
 	pos.y = randi_range(-$CollisionShape2D.shape.extents.y, $CollisionShape2D.shape.extents.y)
+	pos += $CollisionShape2D.global_position
 	return pos

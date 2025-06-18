@@ -1,13 +1,13 @@
 extends Control
 
-var hours_logged = 0
+var hours_logged = 20000
 var hackers = 1
 var reviewers = 1
 var staff = 0
 var staff_clicked = 0
 
 var aplicant_price = 100
-var staff_price = 150
+var staff_price = 100
 
 @onready var particle = preload("res://hour_particle.tscn")
 
@@ -34,7 +34,6 @@ func clock_ticked() -> void:
 	new_particle.hours = hours_perclick
 	new_particle.global_position = Vector2.ZERO
 	$"../..".add_child(new_particle)
-	$"../../roam area".spawn()
 
 
 func aplicant_aproved() -> void:
@@ -58,3 +57,4 @@ func _on_hire_pressed() -> void:
 		staff += 1
 		hours_logged -= staff_price
 		staff_price += roundi(staff_price * 0.25)
+		$"../../roam area".spawn()

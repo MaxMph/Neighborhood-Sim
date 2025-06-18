@@ -3,9 +3,7 @@ extends Node
 
 
 func _ready() -> void:
-	pass
-
-
+	_load()
 
 func _process(delta: float) -> void:
 	pass
@@ -32,3 +30,42 @@ func displaynum(num):
 		return str(num_text) + "M"
 	else:
 		return str(num)
+
+const save_location = "user://savefile.json"
+
+var save_data: Dictionary = {
+	"hours": 0,
+	"staff": 0,
+	"staff_price": 0,
+	"hackers": 0,
+	"aplicant_price": 0,
+}
+
+func _exit_tree() -> void:
+	_save()
+
+
+func _save():
+	save_data.hours = 0 #hours var
+	save_data.staff
+	save_data.staff_price
+	#save_data.shipment_ids = shipments_made
+	
+	var savefile = FileAccess.open(save_location, FileAccess.WRITE)
+	savefile.store_var(save_data.duplicate())
+	savefile.close()
+
+func _load():
+	if FileAccess.file_exists(save_location):
+		var file = FileAccess.open(save_location, FileAccess.READ)
+		var data = file.get_var()
+		file.close()
+		
+		var loaded_save_data = data.duplicate()
+		#drop_ids = loaded_save_data.ids
+		#shipments_made = loaded_save_data.shipment_ids
+		#print(drop_ids)
+
+func close():
+	_save()
+	get_tree().quit()
