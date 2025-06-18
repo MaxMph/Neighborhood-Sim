@@ -16,9 +16,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	#$"HUD/MarginContainer/HBoxContainer/hours logged".text = "Hackatime Hours: " + Global.displaynum(hours_logged)
-	#$HUD/MarginContainer/HBoxContainer/hackers.text = "Hackers: " + str(hackers)
-	#$HUD/MarginContainer/HBoxContainer/staff.text = "Staff: " + str(staff)
+	$"Hud/HUD bar/MarginContainer/HBoxContainer/hours logged".text = "Hackatime Hours: " + Global.displaynum(hours_logged)
+	$"Hud/HUD bar/MarginContainer/HBoxContainer/hackers".text = "Hackers: " + str(hackers)
+	$"Hud/HUD bar/MarginContainer/HBoxContainer/staff".text = "Staff: " + str(staff)
 	
 	$phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/price.text = Global.displaynum(aplicant_price)
 	$phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer2/price.text = Global.displaynum(staff_price)
@@ -26,12 +26,15 @@ func _process(delta: float) -> void:
 func clock_ticked() -> void:
 	var hours_perclick = hackers
 	hours_logged += hours_perclick
-	$Clock/AnimationPlayer.stop()
-	$Clock/AnimationPlayer.play("button")
+	$"../../clock/clock/AnimationPlayer".stop()
+	$"../../clock/clock/AnimationPlayer".play("clicked")
+	$"../../clock/clock/min hand/AnimationPlayer2".stop()
+	$"../../clock/clock/min hand/AnimationPlayer2".play("minute_hand")
 	var new_particle = particle.instantiate()
 	new_particle.hours = hours_perclick
 	new_particle.global_position = Vector2.ZERO
-	$particle_spawn.add_child(new_particle)
+	$"../..".add_child(new_particle)
+	$"../../roam area".spawn()
 
 
 func aplicant_aproved() -> void:
