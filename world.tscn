@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cnns0ecdyngoy"]
+[gd_scene load_steps=36 format=3 uid="uid://cnns0ecdyngoy"]
 
 [ext_resource type="Script" uid="uid://dc3wu1n8yl2wl" path="res://player.gd" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://bdl2r8l08s7ud" path="res://Concrete017_1K-JPG_Color.jpg" id="2_fj7yv"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dadw3dwdawk8r" path="res://grass backround.png" id="9_ioo17"]
 [ext_resource type="Script" uid="uid://ddt2n1wnew744" path="res://roam_area.gd" id="10_wse8f"]
 [ext_resource type="Texture2D" uid="uid://ddhspihjqpbuj" path="res://min hand0001.png" id="11_26xuy"]
+[ext_resource type="PackedScene" uid="uid://bugaka18dqhnv" path="res://apple.tscn" id="14_70uel"]
+[ext_resource type="Script" uid="uid://dkr1kbiaswg86" path="res://teleporter.gd" id="15_hiqwa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fj7yv"]
 
@@ -20,7 +22,9 @@
 texture = ExtResource("5_ic0uy")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwbse"]
-bg_color = Color(0.63483, 0.785716, 0.963915, 1)
+bg_color = Color(0.18959, 0.243236, 0.303271, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hiqwa"]
 
 [sub_resource type="Animation" id="Animation_pkg7o"]
 length = 0.001
@@ -148,12 +152,26 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ioo17"]
 size = Vector2(1159, 767)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_70uel"]
+size = Vector2(32, 366)
+
 [node name="world" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="cam pos" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="cam pos"]
 zoom = Vector2(0.55, 0.55)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="Camera2D2" type="Camera2D" parent="cam pos"]
+position = Vector2(1694, -63)
+zoom = Vector2(0.55, 0.55)
+
+[node name="Marker2D" type="Marker2D" parent="cam pos"]
+
+[node name="Marker2D2" type="Marker2D" parent="cam pos"]
+position = Vector2(1694, -7)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["player"]]
 script = ExtResource("1_f3sb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
@@ -172,10 +190,10 @@ texture = ExtResource("3_pkg7o")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -4
-offset_left = -1362.0
-offset_top = -1221.0
-offset_right = 18638.0
-offset_bottom = 18779.0
+offset_left = -3085.0
+offset_top = -2099.0
+offset_right = 58479.0
+offset_bottom = 33693.0
 scale = Vector2(0.14, 0.14)
 texture = ExtResource("3_pkg7o")
 stretch_mode = 1
@@ -271,7 +289,6 @@ layout_mode = 2
 text = "Phone"
 
 [node name="phone" type="PanelContainer" parent="CanvasLayer/UI"]
-visible = false
 custom_minimum_size = Vector2(280, 420)
 layout_mode = 1
 anchors_preset = 8
@@ -279,10 +296,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -116.5
+offset_top = -158.5
+offset_right = 116.5
+offset_bottom = 158.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_k3n1d")
@@ -303,7 +320,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_dwbse")
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
-alignment = 1
+alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -316,6 +333,7 @@ size_flags_vertical = 4
 text = "Aprove"
 
 [node name="LineEdit" type="LineEdit" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 text = "1"
@@ -342,12 +360,42 @@ layout_mode = 2
 text = "$200"
 horizontal_alignment = 1
 
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 40
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hiqwa")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+text = "Spend All"
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
 [node name="upgrades" type="Button" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hiqwa")
 
 [node name="hire3" type="Button" parent="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer"]
 visible = false
@@ -368,6 +416,7 @@ custom_minimum_size = Vector2(60, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+flat = true
 
 [node name="clock" type="Node2D" parent="."]
 
@@ -504,13 +553,13 @@ texture = ExtResource("8_gbfbk")
 
 [node name="PaintedLady34" type="Sprite2D" parent="houses"]
 z_index = 2
-position = Vector2(152, 1029)
+position = Vector2(152, 1246)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("8_gbfbk")
 
 [node name="PaintedLady35" type="Sprite2D" parent="houses"]
 z_index = 2
-position = Vector2(-148, 1029)
+position = Vector2(-148, 1246)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("8_gbfbk")
 
@@ -599,6 +648,793 @@ position = Vector2(1334, -273)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("8_gbfbk")
 
+[node name="PaintedLady70" type="Sprite2D" parent="houses"]
+position = Vector2(1632, -442)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady71" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(1632, -608)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady72" type="Sprite2D" parent="houses"]
+position = Vector2(1632, -273)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady73" type="Sprite2D" parent="houses"]
+position = Vector2(1930, -442)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady74" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(1930, -608)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady75" type="Sprite2D" parent="houses"]
+position = Vector2(1930, -273)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady76" type="Sprite2D" parent="houses"]
+position = Vector2(3365, -1614)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady77" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(3365, -1780)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady78" type="Sprite2D" parent="houses"]
+position = Vector2(3365, -1445)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady79" type="Sprite2D" parent="houses"]
+position = Vector2(3658, -1614)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady80" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(3658, -1780)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady81" type="Sprite2D" parent="houses"]
+position = Vector2(3658, -1445)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady82" type="Sprite2D" parent="houses"]
+position = Vector2(3947, -1614)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady83" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(3947, -1780)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady84" type="Sprite2D" parent="houses"]
+position = Vector2(3947, -1445)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady85" type="Sprite2D" parent="houses"]
+position = Vector2(4245, -1614)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady86" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4245, -1780)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady87" type="Sprite2D" parent="houses"]
+position = Vector2(4245, -1445)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady88" type="Sprite2D" parent="houses"]
+position = Vector2(4543, -1614)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady89" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4543, -1780)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady90" type="Sprite2D" parent="houses"]
+position = Vector2(4543, -1445)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady106" type="Sprite2D" parent="houses"]
+position = Vector2(4179, 560)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady107" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4179, 394)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady108" type="Sprite2D" parent="houses"]
+position = Vector2(4179, 729)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady109" type="Sprite2D" parent="houses"]
+position = Vector2(4472, 560)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady110" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4472, 394)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady111" type="Sprite2D" parent="houses"]
+position = Vector2(4472, 729)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady112" type="Sprite2D" parent="houses"]
+position = Vector2(4761, 560)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady113" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4761, 394)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady114" type="Sprite2D" parent="houses"]
+position = Vector2(4761, 729)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady115" type="Sprite2D" parent="houses"]
+position = Vector2(5059, 560)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady116" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(5059, 394)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady117" type="Sprite2D" parent="houses"]
+position = Vector2(5059, 729)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady118" type="Sprite2D" parent="houses"]
+position = Vector2(5357, 560)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady119" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(5357, 394)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady120" type="Sprite2D" parent="houses"]
+position = Vector2(5357, 729)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady91" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady92" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4188, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady93" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady94" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady95" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4481, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady96" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady97" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady98" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4770, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady99" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady100" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady101" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(5068, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady102" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady103" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady104" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(5366, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady105" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady121" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady122" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady123" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady124" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady125" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady126" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady127" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady128" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady129" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady130" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady131" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady132" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady133" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady134" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady135" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady136" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady137" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4188, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady138" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady139" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady140" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4481, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady141" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady142" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady143" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(4770, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady144" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady145" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady146" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(5068, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady147" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady148" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -863)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady149" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(5366, -1029)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady150" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -694)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady151" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady152" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady153" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady154" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady155" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -527)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady156" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady157" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady158" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady159" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady160" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -356)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady161" type="Sprite2D" parent="houses"]
+position = Vector2(4188, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady162" type="Sprite2D" parent="houses"]
+position = Vector2(4481, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady163" type="Sprite2D" parent="houses"]
+position = Vector2(4770, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady164" type="Sprite2D" parent="houses"]
+position = Vector2(5068, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady165" type="Sprite2D" parent="houses"]
+position = Vector2(5366, -192)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady166" type="Sprite2D" parent="houses"]
+position = Vector2(2231, -442)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady167" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(2231, -608)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady168" type="Sprite2D" parent="houses"]
+position = Vector2(2231, -273)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady169" type="Sprite2D" parent="houses"]
+position = Vector2(2524, -442)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady170" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(2524, -608)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady171" type="Sprite2D" parent="houses"]
+position = Vector2(2524, -273)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady172" type="Sprite2D" parent="houses"]
+position = Vector2(2813, -442)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady173" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(2813, -608)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady174" type="Sprite2D" parent="houses"]
+position = Vector2(2813, -273)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady175" type="Sprite2D" parent="houses"]
+position = Vector2(3111, -442)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady176" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(3111, -608)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady177" type="Sprite2D" parent="houses"]
+position = Vector2(3111, -273)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady178" type="Sprite2D" parent="houses"]
+position = Vector2(3409, -442)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady179" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(3409, -608)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady180" type="Sprite2D" parent="houses"]
+position = Vector2(3409, -273)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady186" type="Sprite2D" parent="houses"]
+position = Vector2(2253, 218)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady187" type="Sprite2D" parent="houses"]
+position = Vector2(2546, 218)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady188" type="Sprite2D" parent="houses"]
+position = Vector2(2835, 218)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady189" type="Sprite2D" parent="houses"]
+position = Vector2(3133, 218)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady190" type="Sprite2D" parent="houses"]
+position = Vector2(3431, 218)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady191" type="Sprite2D" parent="houses"]
+position = Vector2(2253, 382)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady192" type="Sprite2D" parent="houses"]
+position = Vector2(2546, 382)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady193" type="Sprite2D" parent="houses"]
+position = Vector2(2835, 382)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady194" type="Sprite2D" parent="houses"]
+position = Vector2(3133, 382)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady195" type="Sprite2D" parent="houses"]
+position = Vector2(3431, 382)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady196" type="Sprite2D" parent="houses"]
+position = Vector2(2231, -1166)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady197" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(2231, -1332)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady198" type="Sprite2D" parent="houses"]
+position = Vector2(2231, -997)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady199" type="Sprite2D" parent="houses"]
+position = Vector2(2524, -1166)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady200" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(2524, -1332)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady201" type="Sprite2D" parent="houses"]
+position = Vector2(2524, -997)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady202" type="Sprite2D" parent="houses"]
+position = Vector2(2813, -1166)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady203" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(2813, -1332)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady204" type="Sprite2D" parent="houses"]
+position = Vector2(2813, -997)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady205" type="Sprite2D" parent="houses"]
+position = Vector2(3111, -1166)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady206" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(3111, -1332)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady207" type="Sprite2D" parent="houses"]
+position = Vector2(3111, -997)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady208" type="Sprite2D" parent="houses"]
+position = Vector2(3409, -1166)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady209" type="Sprite2D" parent="houses"]
+z_index = -1
+position = Vector2(3409, -1332)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady210" type="Sprite2D" parent="houses"]
+position = Vector2(3409, -997)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady211" type="Sprite2D" parent="houses"]
+position = Vector2(2079, 1076)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady212" type="Sprite2D" parent="houses"]
+position = Vector2(2372, 1076)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady213" type="Sprite2D" parent="houses"]
+position = Vector2(2661, 1076)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady214" type="Sprite2D" parent="houses"]
+position = Vector2(2959, 1076)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady215" type="Sprite2D" parent="houses"]
+position = Vector2(3257, 1076)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady216" type="Sprite2D" parent="houses"]
+position = Vector2(2079, 1247)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady217" type="Sprite2D" parent="houses"]
+position = Vector2(2372, 1247)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady218" type="Sprite2D" parent="houses"]
+position = Vector2(2661, 1247)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady219" type="Sprite2D" parent="houses"]
+position = Vector2(2959, 1247)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady220" type="Sprite2D" parent="houses"]
+position = Vector2(3257, 1247)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady221" type="Sprite2D" parent="houses"]
+position = Vector2(2079, 1411)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady222" type="Sprite2D" parent="houses"]
+position = Vector2(2372, 1411)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady223" type="Sprite2D" parent="houses"]
+position = Vector2(2661, 1411)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady224" type="Sprite2D" parent="houses"]
+position = Vector2(2959, 1411)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady225" type="Sprite2D" parent="houses"]
+position = Vector2(3257, 1411)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
 [node name="PaintedLady21" type="Sprite2D" parent="houses"]
 position = Vector2(-745, -273)
 scale = Vector2(0.4, 0.4)
@@ -675,6 +1511,50 @@ position = Vector2(1349, 386)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("8_gbfbk")
 
+[node name="PaintedLady62" type="Sprite2D" parent="houses"]
+z_index = 2
+position = Vector2(1653, 702)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady63" type="Sprite2D" parent="houses"]
+z_index = 1
+position = Vector2(1653, 536)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady64" type="Sprite2D" parent="houses"]
+position = Vector2(1653, 217)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady65" type="Sprite2D" parent="houses"]
+position = Vector2(1653, 386)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady66" type="Sprite2D" parent="houses"]
+z_index = 2
+position = Vector2(1957, 702)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady67" type="Sprite2D" parent="houses"]
+z_index = 1
+position = Vector2(1957, 536)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady68" type="Sprite2D" parent="houses"]
+position = Vector2(1957, 217)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
+[node name="PaintedLady69" type="Sprite2D" parent="houses"]
+position = Vector2(1957, 386)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_gbfbk")
+
 [node name="PaintedLady25" type="Sprite2D" parent="houses"]
 position = Vector2(-745, 65.9999)
 scale = Vector2(0.4, 0.4)
@@ -705,9 +1585,33 @@ z_index = 1
 position = Vector2(0, 129)
 shape = SubResource("RectangleShape2D_ioo17")
 
+[node name="apple" parent="." instance=ExtResource("14_70uel")]
+position = Vector2(-347, 77)
+
+[node name="apple2" parent="." instance=ExtResource("14_70uel")]
+position = Vector2(-168, -63)
+
+[node name="apple3" parent="." instance=ExtResource("14_70uel")]
+position = Vector2(-168, 271)
+
+[node name="apple4" parent="." instance=ExtResource("14_70uel")]
+position = Vector2(-9, 271)
+
+[node name="teleporter 1" type="Area2D" parent="." node_paths=PackedStringArray("camera", "marker1", "marker2")]
+position = Vector2(753, -25)
+script = ExtResource("15_hiqwa")
+camera = NodePath("../cam pos/Camera2D")
+marker1 = NodePath("../cam pos/Marker2D")
+marker2 = NodePath("../cam pos/Marker2D2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="teleporter 1"]
+position = Vector2(67, 59)
+shape = SubResource("RectangleShape2D_70uel")
+
 [connection signal="pressed" from="CanvasLayer/UI/Hud/HBoxContainer/phone" to="CanvasLayer/UI/phone" method="_on_phone_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/aprove" to="CanvasLayer/UI" method="aplicant_aproved"]
 [connection signal="pressed" from="CanvasLayer/UI/phone/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer2/hire" to="CanvasLayer/UI" method="_on_hire_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/phone/AspectRatioContainer/home button" to="CanvasLayer/UI/phone" method="_on_phone_pressed"]
 [connection signal="pressed" from="clock/clock/clockbutton" to="CanvasLayer/UI" method="clock_ticked"]
 [connection signal="timeout" from="clock/clock/Staff" to="CanvasLayer/UI" method="_on_staff_timeout"]
+[connection signal="body_entered" from="teleporter 1" to="teleporter 1" method="_on_body_entered"]

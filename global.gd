@@ -1,6 +1,14 @@
 extends Node
 
 
+var hours_logged = 20000
+var hackers = 1
+var reviewers = 1
+var staff = 0
+var staff_clicked = 0
+
+var aplicant_price = 100
+var staff_price = 100
 
 func _ready() -> void:
 	_load()
@@ -36,9 +44,9 @@ const save_location = "user://savefile.json"
 var save_data: Dictionary = {
 	"hours": 0,
 	"staff": 0,
-	"staff_price": 0,
-	"hackers": 0,
-	"aplicant_price": 0,
+	"staff_price": 100,
+	"hackers": 1,
+	"aplicant_price": 100,
 }
 
 func _exit_tree() -> void:
@@ -46,10 +54,11 @@ func _exit_tree() -> void:
 
 
 func _save():
-	save_data.hours = 0 #hours var
-	save_data.staff
-	save_data.staff_price
-	#save_data.shipment_ids = shipments_made
+	save_data.hours = hours_logged
+	save_data.staff = staff
+	save_data.staff_price = staff_price
+	save_data.hackers = hackers
+	save_data.aplicant_price = aplicant_price
 	
 	var savefile = FileAccess.open(save_location, FileAccess.WRITE)
 	savefile.store_var(save_data.duplicate())
@@ -62,9 +71,11 @@ func _load():
 		file.close()
 		
 		var loaded_save_data = data.duplicate()
-		#drop_ids = loaded_save_data.ids
-		#shipments_made = loaded_save_data.shipment_ids
-		#print(drop_ids)
+		hours_logged = loaded_save_data.hours
+		hackers = loaded_save_data.hackers
+		staff = loaded_save_data.staff
+		aplicant_price = loaded_save_data.aplicant_price
+		staff_price = loaded_save_data.staff_price
 
 func close():
 	_save()

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 240.0
+const SPEED = 300.0
 const fric = 20.0
 
 
@@ -19,6 +19,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		#velocity.move_toward(Vector2.ZERO, fric * delta)# * delta)
 		velocity.x = move_toward(velocity.x, 0, fric)
-		velocity.y = move_toward(velocity.y, 0, fric )
+		velocity.y = move_toward(velocity.y, 0, fric)
 
 	move_and_slide()

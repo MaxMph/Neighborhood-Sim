@@ -23,14 +23,14 @@ func _process(delta: float) -> void:
 		if global_position.distance_to(target_pos) < speed * delta:
 			decide()
 		else:
-			print("agagooba")
+			#print("agagooba")
 			position += global_position.direction_to(target_pos) * speed * delta
 			position.move_toward(target_pos, speed * delta)
 			#position = lerp(position, target_pos, speed * delta)
 			#position.move_toward(target_pos, speed * delta)
 
 func decide():
-	print("decide")
+	#print("decide")
 	walk = false
 	$LittleDude.show()
 	$LittleDude2.hide()
@@ -43,7 +43,7 @@ func decide():
 		await get_tree().create_timer(randf() * 4).timeout
 		walk = true
 		target_pos = get_parent().rand_pos()
-	print(target_pos)
+	#print(target_pos)
 
 
 
@@ -58,3 +58,10 @@ func start_walk():
 	$LittleDude.hide()
 	if $Timer.is_stopped():
 		$Timer.start()
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("food"):
+		
+		scale *= body.get_parent().scale_mult
+		body.get_parent().eat()
